@@ -11,10 +11,10 @@
     ],
     "autoload": {
         "psr-0": {
-            "AccountApiSDK": "src"
+            "AccountClientSDK": "src"
         },
         "psr-4": {
-            "BetterDev\\AccountApiSDK\\": "src"
+            "BetterDev\\AccountClientSDK\\": "src"
         }
     },
     "require": {
