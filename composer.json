@@ -1,5 +1,5 @@
 {
-    "name": "BetterDev/AccountApiClient",
+    "name": "better-dev/account-api-client",
     "description": "API for clients authentication",
     "type": "library",
     "authors": [
