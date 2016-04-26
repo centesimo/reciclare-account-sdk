@@ -1,6 +1,6 @@
 {
     "name": "better-dev/account-api-client",
-    "description": "API for clients authentication",
+    "description": "API for OAuth clients account authentication",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -9,11 +9,16 @@
             "email": "marcelozani@hotmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "AccountApiClient": "src"
+        }
+    }
     "require": {
-            "guzzlehttp/guzzle": "^6.2",
-            "nesbot/carbon": "~1.21.0",
-            "illuminate/config": "^5.2",
-            "illuminate/session": "^5.2"
+        "php": ">=5.5.9",
+        "guzzlehttp/guzzle": "^6.2",
+        "nesbot/carbon": "~1.21.0",
+        "illuminate/config": "^5.2",
+        "illuminate/session": "^5.2"
     }
 }
