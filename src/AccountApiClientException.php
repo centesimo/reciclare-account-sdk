@@ -1,6 +1,6 @@
 <?php
 
-namespace BetterDev\AccountApiSDK;
+namespace BetterDev\AccountClientSDK;
 
 class AccountApiClientException extends \Exception
 {
