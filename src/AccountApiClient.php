@@ -102,6 +102,14 @@ class AccountApiClient
 			if ($callBackURL){
 				header("Location: ".$callBackURL."?".http_build_query($token_response));
 				die;
+				//post do callback real
+				$client = new Client();
+				$res = $client->request('POST', $callBackURL, [
+					'form_params' =>
+						[
+							"acces_token" => $token_response
+						]
+				]);
 			}
 	        return $token_response;
 		} catch (ClientException $e) {
