@@ -83,7 +83,7 @@ class AccountApiClient
 		}
 	}
 
-	public static function doLogin($user_name, $password)
+	public static function doLogin($user_name, $password, $callBackURL = null)
 	{
 		try {
 	        $client = new Client();
@@ -99,6 +99,10 @@ class AccountApiClient
 	        ]);
 			$token_response = json_decode($res->getBody());
 			AccountApiClient::saveTokenSession($token_response);
+			if ($callBackURL){
+				header("Location: ".$callBackURL."?".http_build_query($token_response));
+				die;
+			}
 	        return $token_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
