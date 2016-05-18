@@ -243,6 +243,7 @@ class AccountApiClient
 				'form_params' =>
 					[
 						'access_token' => $token,
+						'id' => $user['id'],
 						'name' => $user['name'],
 						'email' => $user['email'],
 						'login' => $user['login'],
