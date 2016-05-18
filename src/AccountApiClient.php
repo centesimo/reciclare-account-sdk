@@ -31,9 +31,25 @@ class AccountApiClient
 	{
 		return Config::get('account_client.server-api-url').'/user/getall';
 	}
+	public static function serverApiUrlUserGet()
+	{
+		return Config::get('account_client.server-api-url').'/user/get';
+	}
 	public static function serverApiUrlUserMe()
 	{
 		return Config::get('account_client.server-api-url').'/user/me';
+	}
+	public static function serverApiUrlUserRegister()
+	{
+		return Config::get('account_client.server-api-url').'/user/register';
+	}
+	public static function serverApiUrlUserActivate()
+	{
+		return Config::get('account_client.server-api-url').'/user/activate';
+	}
+	public static function serverApiUrlUserDeactivate()
+	{
+		return Config::get('account_client.server-api-url').'/user/deactivate';
 	}
 
 	public static function getToken()
@@ -83,7 +99,7 @@ class AccountApiClient
 		}
 	}
 
-	public static function doLogin($user_name, $password, $callBackURL = null)
+	public static function doLogin($user_name, $password, $redirectURL = null, $callBackURL = null)
 	{
 		try {
 	        $client = new Client();
@@ -99,17 +115,17 @@ class AccountApiClient
 	        ]);
 			$token_response = json_decode($res->getBody());
 			AccountApiClient::saveTokenSession($token_response);
-			if ($callBackURL){
-				header("Location: ".$callBackURL."?".http_build_query($token_response));
+			if ($redirectURL){
+				header("Location: ".$redirectURL."?".http_build_query($token_response));
 				die;
 				//post do callback real
-				$client = new Client();
-				$res = $client->request('POST', $callBackURL, [
-					'form_params' =>
-						[
-							"acces_token" => $token_response
-						]
-				]);
+				//$client = new Client();
+				//$res = $client->request('POST', $callBackURL, [
+				//	'form_params' =>
+				//		[
+				//			"acces_token" => $token_response
+				//		]
+				//]);
 			}
 	        return $token_response;
 		} catch (ClientException $e) {
@@ -144,6 +160,28 @@ class AccountApiClient
 		}
 	}
 
+	public static function getUser($token, $login)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClient::serverApiUrlUserGet().'/'.$login, [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
+			$getUser_response = json_decode($res->getBody());
+			return $getUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro recuperando dados do usuário.', $error_messages);
+		}
+	}
+
 	public static function me($token)
 	{
 		try {
@@ -163,6 +201,77 @@ class AccountApiClient
 			}
 
 			throw new AccountApiClientException('Erro pegando meus dados.', $error_messages);
+		}
+	}
+
+	public static function registerUser($token, $user)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClient::serverApiUrlUserRegister(), [
+				'form_params' =>
+					[
+						'access_token' => $token,
+    					'name' => $user['name'],
+    					'email' => $user['email'],
+    					'login' => $user['login'],
+    					'password'=> $user['password'],
+    					'password_confirmation' => $user['password_confirmation']
+					]
+			]);
+			$registerUser_response = json_decode($res->getBody());
+			return $registerUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro tentando criar um usuário.', $error_messages);
+		}
+	}
+
+	public static function activateUser($token, $login)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClient::serverApiUrlUserActivate().'/'.$login, [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
+			$activateUser_response = json_decode($res->getBody());
+			return $activateUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro ativando usuário.', $error_messages);
+		}
+	}
+
+	public static function deactivateUser($token, $login)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClient::serverApiUrlUserDeactivate().'/'.$login, [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
+			$deactivateUser_response = json_decode($res->getBody());
+			return $deactivateUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro desativando usuário.', $error_messages);
 		}
 	}
 
