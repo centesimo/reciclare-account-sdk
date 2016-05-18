@@ -43,6 +43,10 @@ class AccountApiClient
 	{
 		return Config::get('account_client.server-api-url').'/user/register';
 	}
+	public static function serverApiUrlUserUpdate()
+	{
+		return Config::get('account_client.server-api-url').'/user/update';
+	}
 	public static function serverApiUrlUserActivate()
 	{
 		return Config::get('account_client.server-api-url').'/user/activate';
@@ -228,6 +232,33 @@ class AccountApiClient
 			}
 
 			throw new AccountApiClientException('Erro tentando criar um usuário.', $error_messages);
+		}
+	}
+
+	public static function updateUser($token, $user)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClient::serverApiUrlUserUpdate(), [
+				'form_params' =>
+					[
+						'access_token' => $token,
+						'name' => $user['name'],
+						'email' => $user['email'],
+						'login' => $user['login'],
+						'password'=> $user['password'],
+						'password_confirmation' => $user['password_confirmation']
+					]
+			]);
+			$updateUser_response = json_decode($res->getBody());
+			return $updateUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro atualizando um usuário.', $error_messages);
 		}
 	}
 
