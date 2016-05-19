@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
 
-class AccountApiClient
+class AccountApiClientUser
 {
 	public static function appId()
 	{
@@ -66,7 +66,7 @@ class AccountApiClient
 				$seconds_left = ($token_response->expires_in - $token_datetime->diffInSeconds(Carbon::now()));
 				if (($token_datetime) && ($seconds_left <= 0))
 				{
-					return AccountApiClient::refreshToken($token_response->refresh_token);
+					return AccountApiClientUser::refreshToken($token_response->refresh_token);
 				}
 			}
 			if ((property_exists($token_response, 'access_token')) && (property_exists($token_response, 'refresh_token')))
@@ -81,17 +81,17 @@ class AccountApiClient
 	{
 		try {
 	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClient::serverApiUrlUserGetToken(), [
+	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
 	        	'form_params' =>
 	        	[
 	        		"grant_type" => "refresh_token",
 	        		"refresh_token" => $refresh_token,
-	        		"client_id" => AccountApiClient::appId(),
-	        		"client_secret" => AccountApiClient::appSecret()
+	        		"client_id" => AccountApiClientUser::appId(),
+	        		"client_secret" => AccountApiClientUser::appSecret()
 	            ]
 	        ]);
 			$token_response = json_decode($res->getBody());
-			AccountApiClient::saveTokenSession($token_response);
+			AccountApiClientUser::saveTokenSession($token_response);
 	        return $token_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
@@ -107,22 +107,25 @@ class AccountApiClient
 	{
 		try {
 	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClient::serverApiUrlUserGetToken(), [
+	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
 	        	'form_params' =>
 	        	[
 	        		"grant_type" => "password",
-	        		"client_id" => AccountApiClient::appId(),
-	        		"client_secret" => AccountApiClient::appSecret(),
+	        		"client_id" => AccountApiClientUser::appId(),
+	        		"client_secret" => AccountApiClientUser::appSecret(),
 	        		"username" => $user_name,
 	        		"password" => $password
 	            ]
 	        ]);
 			$token_response = json_decode($res->getBody());
-			AccountApiClient::saveTokenSession($token_response);
+			AccountApiClientUser::saveTokenSession($token_response);
 			if ($redirectURL){
 				header("Location: ".$redirectURL."?".http_build_query($token_response));
 				die;
-				//post do callback real
+
+				//todo: post do callback real
+
+
 				//$client = new Client();
 				//$res = $client->request('POST', $callBackURL, [
 				//	'form_params' =>
@@ -146,7 +149,7 @@ class AccountApiClient
 	{
 		try {
 	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClient::serverApiUrlUserGetall(), [
+	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetall(), [
 	        	'form_params' =>
 	        	[
 	        		'access_token' => $token
@@ -168,7 +171,7 @@ class AccountApiClient
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClient::serverApiUrlUserGet().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGet().'/'.$login, [
 				'form_params' =>
 					[
 						'access_token' => $token
@@ -190,7 +193,7 @@ class AccountApiClient
 	{
 		try {
 	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClient::serverApiUrlUserMe(), [
+	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserMe(), [
 	        	'form_params' =>
 	        	[
 	        		'access_token' => $token
@@ -212,7 +215,7 @@ class AccountApiClient
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClient::serverApiUrlUserRegister(), [
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserRegister(), [
 				'form_params' =>
 					[
 						'access_token' => $token,
@@ -239,7 +242,7 @@ class AccountApiClient
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClient::serverApiUrlUserUpdate(), [
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserUpdate(), [
 				'form_params' =>
 					[
 						'access_token' => $token,
@@ -267,7 +270,7 @@ class AccountApiClient
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClient::serverApiUrlUserActivate().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserActivate().'/'.$login, [
 				'form_params' =>
 					[
 						'access_token' => $token
@@ -289,7 +292,7 @@ class AccountApiClient
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClient::serverApiUrlUserDeactivate().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserDeactivate().'/'.$login, [
 				'form_params' =>
 					[
 						'access_token' => $token
@@ -308,7 +311,7 @@ class AccountApiClient
 	}
 
 	public static function logout(){
-		AccountApiClient::removeTokenSession();
+		AccountApiClientUser::removeTokenSession();
 	}
 
 	public static function saveTokenSession($token){
