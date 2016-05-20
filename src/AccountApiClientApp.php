@@ -83,14 +83,14 @@ class AccountApiClientApp
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppRegister(), [
+			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppRegister() , [
 				'form_params' =>
 					[
 						'access_token' => $token,
     					'name' => $app['name'],
     					'id' => $app['id'],
     					'secret' => $app['secret'],
-						'ownerUser' => $app['ownerUser']
+						'owner_user_id' => $app['owner_user_id']
 					]
 			]);
 			$registerApp_response = json_decode($res->getBody());
@@ -105,18 +105,18 @@ class AccountApiClientApp
 		}
 	}
 
-	public static function updateApp($token, $app)
+	public static function updateApp($token, $app_id, $app)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppUpdate(), [
+			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppUpdate().'/'.$app_id, [
 				'form_params' =>
 					[
 						'access_token' => $token,
 						'name' => $app['name'],
 						'id' => $app['id'],
 						'secret' => $app['secret'],
-						'ownerUser' => $app['ownerUser']
+						'owner_user_id' => $app['owner_user_id']
 					]
 			]);
 			$updateApp_response = json_decode($res->getBody());
