@@ -79,7 +79,7 @@ class AccountApiClientApp
 		}
 	}
 
-	public static function registerApp($token, $user)
+	public static function registerApp($token, $app)
 	{
 		try {
 			$client = new Client();
@@ -87,11 +87,10 @@ class AccountApiClientApp
 				'form_params' =>
 					[
 						'access_token' => $token,
-    					'name' => $user['name'],
-    					'email' => $user['email'],
-    					'login' => $user['login'],
-    					'password'=> $user['password'],
-    					'password_confirmation' => $user['password_confirmation']
+    					'name' => $app['name'],
+    					'id' => $app['id'],
+    					'secret' => $app['secret'],
+						'ownerUser' => $app['ownerUser']
 					]
 			]);
 			$registerApp_response = json_decode($res->getBody());
@@ -102,11 +101,11 @@ class AccountApiClientApp
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro tentando criar um usuário.', $error_messages);
+			throw new AccountApiClientException('Erro tentando criar um aplicativo.', $error_messages);
 		}
 	}
 
-	public static function updateApp($token, $user)
+	public static function updateApp($token, $app)
 	{
 		try {
 			$client = new Client();
@@ -114,12 +113,10 @@ class AccountApiClientApp
 				'form_params' =>
 					[
 						'access_token' => $token,
-						'id' => $user['id'],
-						'name' => $user['name'],
-						'email' => $user['email'],
-						'login' => $user['login'],
-						'password'=> $user['password'],
-						'password_confirmation' => $user['password_confirmation']
+						'name' => $app['name'],
+						'id' => $app['id'],
+						'secret' => $app['secret'],
+						'ownerUser' => $app['ownerUser']
 					]
 			]);
 			$updateApp_response = json_decode($res->getBody());
@@ -130,7 +127,7 @@ class AccountApiClientApp
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro atualizando um usuário.', $error_messages);
+			throw new AccountApiClientException('Erro atualizando um aplicativo.', $error_messages);
 		}
 	}
 
@@ -152,7 +149,7 @@ class AccountApiClientApp
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro ativando usuário.', $error_messages);
+			throw new AccountApiClientException('Erro ativando aplicativo.', $error_messages);
 		}
 	}
 
@@ -174,7 +171,7 @@ class AccountApiClientApp
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro desativando usuário.', $error_messages);
+			throw new AccountApiClientException('Erro desativando aplicativo.', $error_messages);
 		}
 	}
 }
