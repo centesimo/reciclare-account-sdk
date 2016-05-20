@@ -34,6 +34,10 @@ class AccountApiClientApp
 	{
 		return Config::get('account_client.server-api-url').'/client/deactivate';
 	}
+	public static function serverApiUrlAppAddUser()
+	{
+		return Config::get('account_client.server-api-url').'/client/adduser';
+	}
 
 	public static function getAllApps($token)
 	{
@@ -172,6 +176,29 @@ class AccountApiClientApp
 			}
 
 			throw new AccountApiClientException('Erro desativando aplicativo.', $error_messages);
+		}
+	}
+
+	public static function addUser($token, $app_id, $users)
+	{
+		try {
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppAddUser().'/'.$app_id, [
+				'form_params' =>
+					[
+						'access_token' => $token,
+						'users' => $users
+					]
+			]);
+			$addUser_response = json_decode($res->getBody());
+			return $addUser_response;
+		} catch (ClientException $e) {
+			$error_messages = null;
+			if ($e->getCode() == 401){
+				$error_messages = json_decode($e->getResponse()->getBody());
+			}
+
+			throw new AccountApiClientException('Erro atualizando um aplicativo.', $error_messages);
 		}
 	}
 }
