@@ -103,37 +103,45 @@ class AccountApiClientUser
 		}
 	}
 
-	public static function doLogin($user_name, $password, $redirectURL = null, $callBackURL = null)
+	public static function doLogin($user_name, $password, $redirectURL = null, $callBackURL = null, $appName=null, $appSecret=null)
 	{
 		try {
 	        $client = new Client();
+			$appname = AccountApiClientUser::appId();
+			$appsecret = AccountApiClientUser::appSecret();
+			if (($appName) && ($appSecret)){
+				$appname = $appName;
+				$appsecret = $appSecret;
+			}
 	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
 	        	'form_params' =>
 	        	[
 	        		"grant_type" => "password",
-	        		"client_id" => AccountApiClientUser::appId(),
-	        		"client_secret" => AccountApiClientUser::appSecret(),
+	        		"client_id" => $appname,
+	        		"client_secret" => $appsecret,
 	        		"username" => $user_name,
 	        		"password" => $password
 	            ]
 	        ]);
 			$token_response = json_decode($res->getBody());
-			AccountApiClientUser::saveTokenSession($token_response);
+
 			if ($redirectURL){
-				header("Location: ".$redirectURL."?".http_build_query($token_response));
+				header("Location: ".urldecode($redirectURL)."?".http_build_query($token_response));
 				die;
-
-				//todo: post do callback real
-
-
-				//$client = new Client();
-				//$res = $client->request('POST', $callBackURL, [
-				//	'form_params' =>
-				//		[
-				//			"acces_token" => $token_response
-				//		]
-				//]);
 			}
+			if ($callBackURL){
+				$client = new Client();
+				$res = $client->request('POST', urldecode($callBackURL), [
+					'form_params' =>
+						[
+							"acces_token" => $token_response
+						]
+				]);
+				die;
+			}
+
+			AccountApiClientUser::saveTokenSession($token_response);
+
 	        return $token_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
