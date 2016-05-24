@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
+use Mockery\CountValidator\Exception;
 
 class AccountApiClientApp
 {
@@ -179,7 +180,7 @@ class AccountApiClientApp
 		}
 	}
 
-	public static function addUser($token, $app_id, $users)
+	public static function addUser($token, $app_id, $user_add_ids, $user_remove_ids)
 	{
 		try {
 			$client = new Client();
@@ -187,12 +188,17 @@ class AccountApiClientApp
 				'form_params' =>
 					[
 						'access_token' => $token,
-						'users' => $users
+						'users_add' => $user_add_ids,
+						'users_remove' => $user_remove_ids
 					]
 			]);
 			$addUser_response = json_decode($res->getBody());
 			return $addUser_response;
-		} catch (ClientException $e) {
+		}
+		catch (Exception $e){
+			throw $e;
+		}
+		catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
 				$error_messages = json_decode($e->getResponse()->getBody());
