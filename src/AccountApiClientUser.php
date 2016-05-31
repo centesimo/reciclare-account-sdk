@@ -4,7 +4,6 @@ namespace BetterDev\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-// use Illuminate\Config;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
