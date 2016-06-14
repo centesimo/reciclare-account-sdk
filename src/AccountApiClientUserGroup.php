@@ -19,9 +19,9 @@ class AccountApiClientUserGroup
 	{
 		return Config::get('account_client.server-api-url').'/client/get';
 	}
-	public static function serverApiUrlAppRegister()
+	public static function serverApiUrlGroupRegister()
 	{
-		return Config::get('account_client.server-api-url').'/client/register';
+		return Config::get('account_client.server-api-url').'/groups/create';
 	}
 	public static function serverApiUrlAppUpdate()
 	{
@@ -50,8 +50,8 @@ class AccountApiClientUserGroup
 	        		'access_token' => $token
 	            ]
 	        ]);
-			$allApps_response = json_decode($res->getBody());
-	        return $allApps_response;
+			$allGroups_response = json_decode($res->getBody());
+	        return $allGroups_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -84,29 +84,26 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function registerApp($token, $app)
+	public static function registerGroup($token, $app)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppRegister() , [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupRegister() , [
 				'form_params' =>
 					[
 						'access_token' => $token,
-    					'name' => $app['name'],
-    					'id' => $app['id'],
-    					'secret' => $app['secret'],
-						'owner_user_id' => $app['owner_user_id']
+    					'description' => $app['description']
 					]
 			]);
-			$registerApp_response = json_decode($res->getBody());
-			return $registerApp_response;
+			$registerGroup_response = json_decode($res->getBody());
+			return $registerGroup_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro tentando criar um aplicativo.', $error_messages);
+			throw new AccountApiClientException('Erro tentando criar um Grupo.', $error_messages);
 		}
 	}
 
