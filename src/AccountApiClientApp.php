@@ -62,14 +62,13 @@ class AccountApiClientApp
 		}
 	}
 
-	public static function getApp($token, $login)
+	public static function getApp($app_id)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGet().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGet().'/'.$app_id, [
 				'form_params' =>
 					[
-						'access_token' => $token
 					]
 			]);
 			$getApp_response = json_decode($res->getBody());
@@ -80,7 +79,7 @@ class AccountApiClientApp
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro recuperando dados do usuário.', $error_messages);
+			throw new AccountApiClientException('Erro recuperando dados do app.', $error_messages);
 		}
 	}
 
@@ -95,7 +94,9 @@ class AccountApiClientApp
     					'name' => $app['name'],
     					'id' => $app['id'],
     					'secret' => $app['secret'],
-						'owner_user_id' => $app['owner_user_id']
+						'owner_user_id' => $app['owner_user_id'],
+						'custom_logo_url' => $app['custom_logo_url'],
+                		'custom_login_css' => $app['custom_login_css'],
 					]
 			]);
 			$registerApp_response = json_decode($res->getBody());
@@ -121,7 +122,9 @@ class AccountApiClientApp
 						'name' => $app['name'],
 						'id' => $app['id'],
 						'secret' => $app['secret'],
-						'owner_user_id' => $app['owner_user_id']
+						'owner_user_id' => $app['owner_user_id'],
+						'custom_logo_url' => $app['custom_logo_url'],
+						'custom_login_css' => $app['custom_login_css'],
 					]
 			]);
 			$updateApp_response = json_decode($res->getBody());
