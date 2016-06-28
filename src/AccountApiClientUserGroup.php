@@ -17,41 +17,41 @@ class AccountApiClientUserGroup
 	}
 	public static function serverApiUrlAppGet()
 	{
-		return Config::get('account_client.server-api-url').'/client/get';
+		return Config::get('account_client.server-api-url').'/groups/get';
 	}
 	public static function serverApiUrlGroupRegister()
 	{
 		return Config::get('account_client.server-api-url').'/groups/create';
 	}
-	public static function serverApiUrlAppUpdate()
+	public static function serverApiUrlGroupUpdate()
 	{
-		return Config::get('account_client.server-api-url').'/client/update';
+		return Config::get('account_client.server-api-url').'/groups/update';
 	}
-	public static function serverApiUrlAppActivate()
+	public static function serverApiUrlGroupActivate()
 	{
-		return Config::get('account_client.server-api-url').'/client/activate';
+		return Config::get('account_client.server-api-url').'/groups/activate';
 	}
-	public static function serverApiUrlAppDeactivate()
+	public static function serverApiUrlGroupDeactivate()
 	{
-		return Config::get('account_client.server-api-url').'/client/deactivate';
+		return Config::get('account_client.server-api-url').'/groups/deactivate';
 	}
-	public static function serverApiUrlAppAddUser()
+	public static function serverApiUrlGroupAddUser()
 	{
-		return Config::get('account_client.server-api-url').'/client/adduser';
+		return Config::get('account_client.server-api-url').'/groups/adduser';
 	}
 
 	public static function getAllGroups($token)
 	{
 		try {
-	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGetall(), [
-	        	'form_params' =>
-	        	[
-	        		'access_token' => $token
-	            ]
-	        ]);
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGetall(), [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
 			$allGroups_response = json_decode($res->getBody());
-	        return $allGroups_response;
+			return $allGroups_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -62,11 +62,11 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function getApp($token, $login)
+	public static function getGroup($token, $id)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGet().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlAppGet().'/'.$id, [
 				'form_params' =>
 					[
 						'access_token' => $token
@@ -80,7 +80,7 @@ class AccountApiClientUserGroup
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro recuperando dados do usuário.', $error_messages);
+			throw new AccountApiClientException('Erro recuperando dados do grupo.', $error_messages);
 		}
 	}
 
@@ -92,7 +92,7 @@ class AccountApiClientUserGroup
 				'form_params' =>
 					[
 						'access_token' => $token,
-    					'description' => $app['description']
+						'description' => $app['description']
 					]
 			]);
 			$registerGroup_response = json_decode($res->getBody());
@@ -107,18 +107,15 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function updateApp($token, $app_id, $app)
+	public static function updateGroup($token, $group_id, $group)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppUpdate().'/'.$app_id, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupUpdate().'/'.$group_id, [
 				'form_params' =>
 					[
 						'access_token' => $token,
-						'name' => $app['name'],
-						'id' => $app['id'],
-						'secret' => $app['secret'],
-						'owner_user_id' => $app['owner_user_id']
+						'description' => $group['description'],
 					]
 			]);
 			$updateApp_response = json_decode($res->getBody());
@@ -133,18 +130,18 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function activateApp($token, $login)
+	public static function activateGroup($token, $id)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppActivate().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupActivate().'/'.$id, [
 				'form_params' =>
 					[
 						'access_token' => $token
 					]
 			]);
-			$activateApp_response = json_decode($res->getBody());
-			return $activateApp_response;
+			$activateGroup_response = json_decode($res->getBody());
+			return $activateGroup_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -155,18 +152,18 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function deactivateApp($token, $login)
+	public static function deactivateGroup($token, $id)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppDeactivate().'/'.$login, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupDeactivate().'/'.$id, [
 				'form_params' =>
 					[
 						'access_token' => $token
 					]
 			]);
-			$deactivateApp_response = json_decode($res->getBody());
-			return $deactivateApp_response;
+			$deactivateGroup_response = json_decode($res->getBody());
+			return $deactivateGroup_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
