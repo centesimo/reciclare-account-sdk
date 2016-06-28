@@ -174,11 +174,11 @@ class AccountApiClientUserGroup
 		}
 	}
 
-	public static function addUser($token, $app_id, $user_add_ids, $user_remove_ids)
+	public static function addUser($token, $group_id, $user_add_ids, $user_remove_ids)
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppAddUser().'/'.$app_id, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupAddUser().'/'.$group_id, [
 				'form_params' =>
 					[
 						'access_token' => $token,
@@ -197,8 +197,7 @@ class AccountApiClientUserGroup
 			if ($e->getCode() == 401){
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
-
-			throw new AccountApiClientException('Erro atualizando um aplicativo.', $error_messages);
+			throw new AccountApiClientException('Erro atualizando um grupo.', $error_messages);
 		}
 	}
 }
