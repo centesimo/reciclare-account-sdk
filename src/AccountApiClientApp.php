@@ -7,7 +7,6 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
-use Mockery\CountValidator\Exception;
 
 class AccountApiClientApp
 {

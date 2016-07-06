@@ -4,6 +4,7 @@ namespace BetterDev\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+// use Illuminate\Config;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
@@ -18,7 +19,7 @@ class AccountApiClientUser
 	{
 		return Config::get('account_client.client-app-secret');
 	}
-		public static function serverApiUrl()
+	public static function serverApiUrl()
 	{
 		return Config::get('account_client.server-api-url');
 	}
@@ -79,19 +80,19 @@ class AccountApiClientUser
 	public static function refreshToken($refresh_token)
 	{
 		try {
-	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
-	        	'form_params' =>
-	        	[
-	        		"grant_type" => "refresh_token",
-	        		"refresh_token" => $refresh_token,
-	        		"client_id" => AccountApiClientUser::appId(),
-	        		"client_secret" => AccountApiClientUser::appSecret()
-	            ]
-	        ]);
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
+				'form_params' =>
+					[
+						"grant_type" => "refresh_token",
+						"refresh_token" => $refresh_token,
+						"client_id" => AccountApiClientUser::appId(),
+						"client_secret" => AccountApiClientUser::appSecret()
+					]
+			]);
 			$token_response = json_decode($res->getBody());
 			AccountApiClientUser::saveTokenSession($token_response);
-	        return $token_response;
+			return $token_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -105,27 +106,27 @@ class AccountApiClientUser
 	public static function doLogin($user_name, $password, $redirectURL = null, $callBackURL = null, $appName=null, $appSecret=null)
 	{
 		try {
-	        $client = new Client();
+			$client = new Client();
 			$appname = AccountApiClientUser::appId();
 			$appsecret = AccountApiClientUser::appSecret();
 			if (($appName) && ($appSecret)){
 				$appname = $appName;
 				$appsecret = $appSecret;
 			}
-	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
-	        	'form_params' =>
-	        	[
-	        		"grant_type" => "password",
-	        		"client_id" => $appname,
-	        		"client_secret" => $appsecret,
-	        		"username" => $user_name,
-	        		"password" => $password
-	            ]
-	        ]);
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
+				'form_params' =>
+					[
+						"grant_type" => "password",
+						"client_id" => $appname,
+						"client_secret" => $appsecret,
+						"username" => $user_name,
+						"password" => $password
+					]
+			]);
 			$token_response = json_decode($res->getBody());
 
 			if ($redirectURL){
-				header("Location: ".urldecode($redirectURL)."?".http_build_query($token_response));
+				header("Location: ".$redirectURL."?".http_build_query($token_response));
 				die;
 			}
 			if ($callBackURL){
@@ -141,7 +142,7 @@ class AccountApiClientUser
 
 			AccountApiClientUser::saveTokenSession($token_response);
 
-	        return $token_response;
+			return $token_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -155,15 +156,15 @@ class AccountApiClientUser
 	public static function getAllUsers($token)
 	{
 		try {
-	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetall(), [
-	        	'form_params' =>
-	        	[
-	        		'access_token' => $token
-	            ]
-	        ]);
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetall(), [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
 			$allUsers_response = json_decode($res->getBody());
-	        return $allUsers_response;
+			return $allUsers_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -199,15 +200,15 @@ class AccountApiClientUser
 	public static function me($token)
 	{
 		try {
-	        $client = new Client();
-	        $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserMe(), [
-	        	'form_params' =>
-	        	[
-	        		'access_token' => $token
-	            ]
-	        ]);
+			$client = new Client();
+			$res = $client->request('POST', AccountApiClientUser::serverApiUrlUserMe(), [
+				'form_params' =>
+					[
+						'access_token' => $token
+					]
+			]);
 			$allUsers_response = json_decode($res->getBody());
-	        return $allUsers_response;
+			return $allUsers_response;
 		} catch (ClientException $e) {
 			$error_messages = null;
 			if ($e->getCode() == 401){
@@ -226,11 +227,11 @@ class AccountApiClientUser
 				'form_params' =>
 					[
 						'access_token' => $token,
-    					'name' => $user['name'],
-    					'email' => $user['email'],
-    					'login' => $user['login'],
-    					'password'=> $user['password'],
-    					'password_confirmation' => $user['password_confirmation']
+						'name' => $user['name'],
+						'email' => $user['email'],
+						'login' => $user['login'],
+						'password'=> $user['password'],
+						'password_confirmation' => $user['password_confirmation']
 					]
 			]);
 			$registerUser_response = json_decode($res->getBody());
