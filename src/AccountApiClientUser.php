@@ -231,7 +231,8 @@ class AccountApiClientUser
 						'email' => $user['email'],
 						'login' => $user['login'],
 						'password'=> $user['password'],
-						'password_confirmation' => $user['password_confirmation']
+						'password_confirmation' => $user['password_confirmation'],
+						'metadatas' => $user['metadatas']
 					]
 			]);
 			$registerUser_response = json_decode($res->getBody());
@@ -259,7 +260,8 @@ class AccountApiClientUser
 						'email' => $user['email'],
 						'login' => $user['login'],
 						'password'=> $user['password'],
-						'password_confirmation' => $user['password_confirmation']
+						'password_confirmation' => $user['password_confirmation'],
+						'metadatas' => $user['metadatas']
 					]
 			]);
 			$updateUser_response = json_decode($res->getBody());

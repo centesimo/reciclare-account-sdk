@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
+use Mockery\CountValidator\Exception;
 
 class AccountApiClientUserGroup
 {
@@ -14,7 +15,7 @@ class AccountApiClientUserGroup
 	{
 		return Config::get('account_client.server-api-url').'/groups/getall';
 	}
-	public static function serverApiUrlAppGet()
+	public static function serverApiUrlGroupGet()
 	{
 		return Config::get('account_client.server-api-url').'/groups/get';
 	}
@@ -65,7 +66,7 @@ class AccountApiClientUserGroup
 	{
 		try {
 			$client = new Client();
-			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlAppGet().'/'.$id, [
+			$res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGet().'/'.$id, [
 				'form_params' =>
 					[
 						'access_token' => $token
