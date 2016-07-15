@@ -50,7 +50,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantGetall(), [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantGetall(), [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -72,7 +72,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantGet().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantGet().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -94,7 +94,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantRegister() , [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantRegister() , [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -118,7 +118,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantUpdate().'/'.$grant_id, [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantUpdate().'/'.$grant_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -142,7 +142,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantActivate().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantActivate().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -164,7 +164,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantDeactivate().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantDeactivate().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -186,7 +186,7 @@ class AccountApiClientGrant
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserGrant::serverApiUrlGrantAddGroup().'/'.$grant_id, [
+            $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantAddGroup().'/'.$grant_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,

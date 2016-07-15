@@ -51,7 +51,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeGetall(), [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeGetall(), [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -73,7 +73,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeGet().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeGet().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -95,7 +95,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeRegister().'/'.$grant_id , [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeRegister().'/'.$grant_id , [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -120,7 +120,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeUpdate().'/'.$grant_id.'/'.$scope_id, [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeUpdate().'/'.$grant_id.'/'.$scope_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -145,7 +145,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeActivate().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeActivate().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
@@ -167,7 +167,7 @@ class AccountApiClientScope
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientUserScope::serverApiUrlScopeDeactivate().'/'.$id, [
+            $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeDeactivate().'/'.$id, [
                 'form_params' =>
                     [
                         'access_token' => $token
