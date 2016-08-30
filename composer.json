@@ -20,6 +20,7 @@
     "require": {
         "php": ">=5.5.9",
         "guzzlehttp/guzzle": "^6.2",
-        "nesbot/carbon": "~1.21.0"
+        "nesbot/carbon": "~1.21.0",
+        "illuminate/session": "^5.2"
     }
 }
