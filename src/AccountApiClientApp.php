@@ -12,31 +12,31 @@ class AccountApiClientApp
 {
 	public static function serverApiUrlAppGetall()
 	{
-		return AccountApiConfig::apiUrl().'/client/getall';
+		return AccountApiConfig::$api_url.'/client/getall';
 	}
 	public static function serverApiUrlAppGet()
 	{
-		return AccountApiConfig::apiUrl().'/client/get';
+		return AccountApiConfig::$api_url.'/client/get';
 	}
 	public static function serverApiUrlAppRegister()
 	{
-		return AccountApiConfig::apiUrl().'/client/register';
+		return AccountApiConfig::$api_url.'/client/register';
 	}
 	public static function serverApiUrlAppUpdate()
 	{
-		return AccountApiConfig::apiUrl().'/client/update';
+		return AccountApiConfig::$api_url.'/client/update';
 	}
 	public static function serverApiUrlAppActivate()
 	{
-		return AccountApiConfig::apiUrl().'/client/activate';
+		return AccountApiConfig::$api_url.'/client/activate';
 	}
 	public static function serverApiUrlAppDeactivate()
 	{
-		return AccountApiConfig::apiUrl().'/client/deactivate';
+		return AccountApiConfig::$api_url.'/client/deactivate';
 	}
 	public static function serverApiUrlAppAddUser()
 	{
-		return AccountApiConfig::apiUrl().'/client/adduser';
+		return AccountApiConfig::$api_url.'/client/adduser';
 	}
 
 	public static function getAllApps($token)

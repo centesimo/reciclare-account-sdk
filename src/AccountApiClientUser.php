@@ -13,47 +13,47 @@ class AccountApiClientUser
 {
 	public static function appId()
 	{
-		return AccountApiConfig::apiClientAppId();
+		return AccountApiConfig::$api_client_app_id;
 	}
 	public static function appSecret()
 	{
-		return AccountApiConfig::apiClientAppSecret();
+		return AccountApiConfig::$api_client_app_secret;
 	}
 	public static function serverApiUrl()
 	{
-		return AccountApiConfig::apiUrl();
+		return AccountApiConfig::$api_url;
 	}
 	public static function serverApiUrlUserGetToken()
 	{
-		return AccountApiConfig::apiUrl().'/access_token';
+		return AccountApiConfig::$api_url.'/access_token';
 	}
 	public static function serverApiUrlUserGetall()
 	{
-		return AccountApiConfig::apiUrl().'/user/getall';
+		return AccountApiConfig::$api_url.'/user/getall';
 	}
 	public static function serverApiUrlUserGet()
 	{
-		return AccountApiConfig::apiUrl().'/user/get';
+		return AccountApiConfig::$api_url.'/user/get';
 	}
 	public static function serverApiUrlUserMe()
 	{
-		return AccountApiConfig::apiUrl().'/user/me';
+		return AccountApiConfig::$api_url.'/user/me';
 	}
 	public static function serverApiUrlUserRegister()
 	{
-		return AccountApiConfig::apiUrl().'/user/register';
+		return AccountApiConfig::$api_url.'/user/register';
 	}
 	public static function serverApiUrlUserUpdate()
 	{
-		return AccountApiConfig::apiUrl().'/user/update';
+		return AccountApiConfig::$api_url.'/user/update';
 	}
 	public static function serverApiUrlUserActivate()
 	{
-		return AccountApiConfig::apiUrl().'/user/activate';
+		return AccountApiConfig::$api_url.'/user/activate';
 	}
 	public static function serverApiUrlUserDeactivate()
 	{
-		return AccountApiConfig::apiUrl().'/user/deactivate';
+		return AccountApiConfig::$api_url.'/user/deactivate';
 	}
 
 	private static $session = null;

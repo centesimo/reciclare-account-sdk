@@ -19,31 +19,31 @@ class AccountApiClientGrant
 {
     public static function serverApiUrlGrantGetall()
     {
-        return AccountApiConfig::apiUrl().'/grants/getall';
+        return AccountApiConfig::$api_url.'/grants/getall';
     }
     public static function serverApiUrlGrantGet()
     {
-        return AccountApiConfig::apiUrl().'/grants/get';
+        return AccountApiConfig::$api_url.'/grants/get';
     }
     public static function serverApiUrlGrantRegister()
     {
-        return AccountApiConfig::apiUrl().'/grants/create';
+        return AccountApiConfig::$api_url.'/grants/create';
     }
     public static function serverApiUrlGrantUpdate()
     {
-        return AccountApiConfig::apiUrl().'/grants/update';
+        return AccountApiConfig::$api_url.'/grants/update';
     }
     public static function serverApiUrlGrantActivate()
     {
-        return AccountApiConfig::apiUrl().'/grants/activate';
+        return AccountApiConfig::$api_url.'/grants/activate';
     }
     public static function serverApiUrlGrantDeactivate()
     {
-        return AccountApiConfig::apiUrl().'/grants/deactivate';
+        return AccountApiConfig::$api_url.'/grants/deactivate';
     }
     public static function serverApiUrlGrantAddGroup()
     {
-        return AccountApiConfig::apiUrl().'/grants/addgroup';
+        return AccountApiConfig::$api_url.'/grants/addgroup';
     }
 
     public static function getAllGrants($token)

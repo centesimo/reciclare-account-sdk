@@ -20,31 +20,31 @@ class AccountApiClientScope
 {
     public static function serverApiUrlScopeGetall()
     {
-        return AccountApiConfig::apiUrl().'/scopes/getall';
+        return AccountApiConfig::$api_url.'/scopes/getall';
     }
     public static function serverApiUrlScopeGet()
     {
-        return AccountApiConfig::apiUrl().'/scopes/get';
+        return AccountApiConfig::$api_url.'/scopes/get';
     }
     public static function serverApiUrlScopeRegister()
     {
-        return AccountApiConfig::apiUrl().'/scopes/create';
+        return AccountApiConfig::$api_url.'/scopes/create';
     }
     public static function serverApiUrlScopeUpdate()
     {
-        return AccountApiConfig::apiUrl().'/scopes/update';
+        return AccountApiConfig::$api_url.'/scopes/update';
     }
     public static function serverApiUrlScopeActivate()
     {
-        return AccountApiConfig::apiUrl().'/scopes/activate';
+        return AccountApiConfig::$api_url.'/scopes/activate';
     }
     public static function serverApiUrlScopeDeactivate()
     {
-        return AccountApiConfig::apiUrl().'/scopes/deactivate';
+        return AccountApiConfig::$api_url.'/scopes/deactivate';
     }
     public static function serverApiUrlScopeAddGroup()
     {
-        return AccountApiConfig::apiUrl().'/scopes/addgroup';
+        return AccountApiConfig::$api_url.'/scopes/addgroup';
     }
 
     public static function getAllScopes($token)

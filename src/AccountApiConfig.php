@@ -4,16 +4,10 @@ namespace BetterDev\AccountClientSDK;
 
 class AccountApiConfig
 {
-	public static function apiUrl()
-	{
-		return 'http://account.espacocentesimo.com.br';
-	}
-	public static function apiClientAppId()
-	{
-		return 'acc-centesimo';
-	}
-	public static function apiClientAppSecret()
-	{
-		return '1234567890';
-	}
+	public static $api_url = 'http://account.espacocentesimo.com.br';
+
+	public static $api_client_app_id = 'acc-centesimo';
+
+	public static $api_client_app_secret = '1234567890';
+	
 }

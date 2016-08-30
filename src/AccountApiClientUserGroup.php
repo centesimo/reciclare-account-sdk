@@ -13,38 +13,38 @@ class AccountApiClientUserGroup
 {
     public static function serverApiUrlGroupGetall()
     {
-        return AccountApiConfig::apiUrl().'/groups/getall';
+        return AccountApiConfig::$api_url.'/groups/getall';
     }
     public static function serverApiUrlGroupGet()
     {
-        return AccountApiConfig::apiUrl().'/groups/get';
+        return AccountApiConfig::$api_url.'/groups/get';
     }
     public static function serverApiUrlGroupRegister()
     {
-        return AccountApiConfig::apiUrl().'/groups/create';
+        return AccountApiConfig::$api_url.'/groups/create';
     }
     public static function serverApiUrlGroupUpdate()
     {
-        return AccountApiConfig::apiUrl().'/groups/update';
+        return AccountApiConfig::$api_url.'/groups/update';
     }
     public static function serverApiUrlGroupActivate()
     {
-        return AccountApiConfig::apiUrl().'/groups/activate';
+        return AccountApiConfig::$api_url.'/groups/activate';
     }
     public static function serverApiUrlGroupDeactivate()
     {
-        return AccountApiConfig::apiUrl().'/groups/deactivate';
+        return AccountApiConfig::$api_url.'/groups/deactivate';
     }
     public static function serverApiUrlGroupAddUser()
     {
-        return AccountApiConfig::apiUrl().'/groups/adduser';
+        return AccountApiConfig::$api_url.'/groups/adduser';
     }
     public static function serverApiUrlGroupAddClient()
     {
-        return AccountApiConfig::apiUrl().'/groups/addclient';
+        return AccountApiConfig::$api_url.'/groups/addclient';
     }	public static function serverApiUrlGroupAddGrant()
 {
-    return AccountApiConfig::apiUrl().'/groups/addgrant';
+    return AccountApiConfig::$api_url.'/groups/addgrant';
 }
     public static function getAllGroups($token)
     {
