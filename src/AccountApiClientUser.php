@@ -4,10 +4,10 @@ namespace BetterDev\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-// use Illuminate\Config;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
+use Aura\Session\SessionFactory;
+use Aura\Session\Segment;
 
 class AccountApiClientUser
 {
@@ -56,13 +56,27 @@ class AccountApiClientUser
 		return AccountApiConfig::apiUrl().'/user/deactivate';
 	}
 
+	private static $session = null;
+
+	public static function getSession(){
+		if (!AccountApiClientUser::$session){
+			$session_factory = new SessionFactory();
+			$session = $session_factory->newInstance($_COOKIE);
+			$segment = $session->getSegment('BetterDev\AccountSDK\Token');
+			AccountApiClientUser::$session = $segment;
+		}
+		return AccountApiClientUser::$session;
+	}
+
 	public static function getToken()
 	{
-		if (session()->has('token_response'))
+		/* @var $session Segment*/
+		$session = AccountApiClientUser::getSession();
+		$token_response = $session->get('token_response');
+		if ($token_response)
 		{
-			$token_response = session()->get('token_response');
-			if (session()->has('token_datetime')){
-				$token_datetime = session()->get('token_datetime');
+			$token_datetime = $session->get('token_datetime');
+			if ($token_datetime){
 				$seconds_left = ($token_response->expires_in - $token_datetime->diffInSeconds(Carbon::now()));
 				if (($token_datetime) && ($seconds_left <= 0))
 				{
@@ -130,7 +144,7 @@ class AccountApiClientUser
 				die;
 			}
 			if ($callBackURL){
-				$client = new CliesaveTokenSessionnt();
+				$client = new Client();
 				$res = $client->request('POST', urldecode($callBackURL), [
 					'form_params' =>
 						[
@@ -171,7 +185,7 @@ class AccountApiClientUser
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientExcesaveTokenSessionption('Erro pegando todos os users', $error_messages);
+			throw new AccountApiClientException('Erro pegando todos os users', $error_messages);
 		}
 	}
 
@@ -197,6 +211,11 @@ class AccountApiClientUser
 		}
 	}
 
+	/***
+	 * @param $token
+	 * @return mixed
+	 * @throws AccountApiClientException
+	 */
 	public static function me($token)
 	{
 		try {
@@ -325,12 +344,16 @@ class AccountApiClientUser
 	}
 
 	public static function saveTokenSession($token){
-		session()->put('token_response', $token);
-		session()->put('token_datetime', Carbon::now());
+		/* @var $session Segment*/
+		$session = AccountApiClientUser::getSession();
+		$session->set('token_response', $token);
+		$session->set('token_datetime', Carbon::now());
 	}
 
 	public static function removeTokenSession(){
-		session()->forget('token_response');
-		session()->forget('token_datetime');
+		/* @var $session Segment*/
+		$session = AccountApiClientUser::getSession();
+		$session->setFlash('token_response', null);
+		$session->setFlash('token_datetime', null);
 	}
 }
