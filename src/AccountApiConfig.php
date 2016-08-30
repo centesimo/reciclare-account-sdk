@@ -6,7 +6,7 @@ class AccountApiConfig
 {
 	public static function apiUrl()
 	{
-		return 'http://localhost:8000';
+		return 'http://account.espacocentesimo.com.br';
 	}
 	public static function apiClientAppId()
 	{
