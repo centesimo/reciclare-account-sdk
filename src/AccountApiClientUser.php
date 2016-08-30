@@ -13,47 +13,47 @@ class AccountApiClientUser
 {
 	public static function appId()
 	{
-		return Config::get('account_client.client-app-id');
+		return AccountApiConfig::apiClientAppId();
 	}
 	public static function appSecret()
 	{
-		return Config::get('account_client.client-app-secret');
+		return AccountApiConfig::apiClientAppSecret();
 	}
 	public static function serverApiUrl()
 	{
-		return Config::get('account_client.server-api-url');
+		return AccountApiConfig::apiUrl();
 	}
 	public static function serverApiUrlUserGetToken()
 	{
-		return Config::get('account_client.server-api-url').'/access_token';
+		return AccountApiConfig::apiUrl().'/access_token';
 	}
 	public static function serverApiUrlUserGetall()
 	{
-		return Config::get('account_client.server-api-url').'/user/getall';
+		return AccountApiConfig::apiUrl().'/user/getall';
 	}
 	public static function serverApiUrlUserGet()
 	{
-		return Config::get('account_client.server-api-url').'/user/get';
+		return AccountApiConfig::apiUrl().'/user/get';
 	}
 	public static function serverApiUrlUserMe()
 	{
-		return Config::get('account_client.server-api-url').'/user/me';
+		return AccountApiConfig::apiUrl().'/user/me';
 	}
 	public static function serverApiUrlUserRegister()
 	{
-		return Config::get('account_client.server-api-url').'/user/register';
+		return AccountApiConfig::apiUrl().'/user/register';
 	}
 	public static function serverApiUrlUserUpdate()
 	{
-		return Config::get('account_client.server-api-url').'/user/update';
+		return AccountApiConfig::apiUrl().'/user/update';
 	}
 	public static function serverApiUrlUserActivate()
 	{
-		return Config::get('account_client.server-api-url').'/user/activate';
+		return AccountApiConfig::apiUrl().'/user/activate';
 	}
 	public static function serverApiUrlUserDeactivate()
 	{
-		return Config::get('account_client.server-api-url').'/user/deactivate';
+		return AccountApiConfig::apiUrl().'/user/deactivate';
 	}
 
 	public static function getToken()
@@ -130,7 +130,7 @@ class AccountApiClientUser
 				die;
 			}
 			if ($callBackURL){
-				$client = new Client();
+				$client = new CliesaveTokenSessionnt();
 				$res = $client->request('POST', urldecode($callBackURL), [
 					'form_params' =>
 						[
@@ -171,7 +171,7 @@ class AccountApiClientUser
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
 
-			throw new AccountApiClientException('Erro pegando todos os users', $error_messages);
+			throw new AccountApiClientExcesaveTokenSessionption('Erro pegando todos os users', $error_messages);
 		}
 	}
 

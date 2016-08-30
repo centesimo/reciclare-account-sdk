@@ -20,31 +20,31 @@ class AccountApiClientScope
 {
     public static function serverApiUrlScopeGetall()
     {
-        return Config::get('account_client.server-api-url').'/scopes/getall';
+        return AccountApiConfig::apiUrl().'/scopes/getall';
     }
     public static function serverApiUrlScopeGet()
     {
-        return Config::get('account_client.server-api-url').'/scopes/get';
+        return AccountApiConfig::apiUrl().'/scopes/get';
     }
     public static function serverApiUrlScopeRegister()
     {
-        return Config::get('account_client.server-api-url').'/scopes/create';
+        return AccountApiConfig::apiUrl().'/scopes/create';
     }
     public static function serverApiUrlScopeUpdate()
     {
-        return Config::get('account_client.server-api-url').'/scopes/update';
+        return AccountApiConfig::apiUrl().'/scopes/update';
     }
     public static function serverApiUrlScopeActivate()
     {
-        return Config::get('account_client.server-api-url').'/scopes/activate';
+        return AccountApiConfig::apiUrl().'/scopes/activate';
     }
     public static function serverApiUrlScopeDeactivate()
     {
-        return Config::get('account_client.server-api-url').'/scopes/deactivate';
+        return AccountApiConfig::apiUrl().'/scopes/deactivate';
     }
     public static function serverApiUrlScopeAddGroup()
     {
-        return Config::get('account_client.server-api-url').'/scopes/addgroup';
+        return AccountApiConfig::apiUrl().'/scopes/addgroup';
     }
 
     public static function getAllScopes($token)

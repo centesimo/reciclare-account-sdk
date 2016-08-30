@@ -13,38 +13,38 @@ class AccountApiClientUserGroup
 {
     public static function serverApiUrlGroupGetall()
     {
-        return Config::get('account_client.server-api-url').'/groups/getall';
+        return AccountApiConfig::apiUrl().'/groups/getall';
     }
     public static function serverApiUrlGroupGet()
     {
-        return Config::get('account_client.server-api-url').'/groups/get';
+        return AccountApiConfig::apiUrl().'/groups/get';
     }
     public static function serverApiUrlGroupRegister()
     {
-        return Config::get('account_client.server-api-url').'/groups/create';
+        return AccountApiConfig::apiUrl().'/groups/create';
     }
     public static function serverApiUrlGroupUpdate()
     {
-        return Config::get('account_client.server-api-url').'/groups/update';
+        return AccountApiConfig::apiUrl().'/groups/update';
     }
     public static function serverApiUrlGroupActivate()
     {
-        return Config::get('account_client.server-api-url').'/groups/activate';
+        return AccountApiConfig::apiUrl().'/groups/activate';
     }
     public static function serverApiUrlGroupDeactivate()
     {
-        return Config::get('account_client.server-api-url').'/groups/deactivate';
+        return AccountApiConfig::apiUrl().'/groups/deactivate';
     }
     public static function serverApiUrlGroupAddUser()
     {
-        return Config::get('account_client.server-api-url').'/groups/adduser';
+        return AccountApiConfig::apiUrl().'/groups/adduser';
     }
     public static function serverApiUrlGroupAddClient()
     {
-        return Config::get('account_client.server-api-url').'/groups/addclient';
+        return AccountApiConfig::apiUrl().'/groups/addclient';
     }	public static function serverApiUrlGroupAddGrant()
 {
-    return Config::get('account_client.server-api-url').'/groups/addgrant';
+    return AccountApiConfig::apiUrl().'/groups/addgrant';
 }
     public static function getAllGroups($token)
     {

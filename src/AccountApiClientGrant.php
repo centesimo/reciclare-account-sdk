@@ -19,31 +19,31 @@ class AccountApiClientGrant
 {
     public static function serverApiUrlGrantGetall()
     {
-        return Config::get('account_client.server-api-url').'/grants/getall';
+        return AccountApiConfig::apiUrl().'/grants/getall';
     }
     public static function serverApiUrlGrantGet()
     {
-        return Config::get('account_client.server-api-url').'/grants/get';
+        return AccountApiConfig::apiUrl().'/grants/get';
     }
     public static function serverApiUrlGrantRegister()
     {
-        return Config::get('account_client.server-api-url').'/grants/create';
+        return AccountApiConfig::apiUrl().'/grants/create';
     }
     public static function serverApiUrlGrantUpdate()
     {
-        return Config::get('account_client.server-api-url').'/grants/update';
+        return AccountApiConfig::apiUrl().'/grants/update';
     }
     public static function serverApiUrlGrantActivate()
     {
-        return Config::get('account_client.server-api-url').'/grants/activate';
+        return AccountApiConfig::apiUrl().'/grants/activate';
     }
     public static function serverApiUrlGrantDeactivate()
     {
-        return Config::get('account_client.server-api-url').'/grants/deactivate';
+        return AccountApiConfig::apiUrl().'/grants/deactivate';
     }
     public static function serverApiUrlGrantAddGroup()
     {
-        return Config::get('account_client.server-api-url').'/grants/addgroup';
+        return AccountApiConfig::apiUrl().'/grants/addgroup';
     }
 
     public static function getAllGrants($token)
