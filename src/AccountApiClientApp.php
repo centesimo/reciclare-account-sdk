@@ -16,7 +16,7 @@ class AccountApiClientApp
 	}
 	public static function serverApiUrlAppGet()
 	{
-		return AccountApiConfig::$api_url.'/client/get';
+		return AccountApiConfig::$api_url.'/client_/get';
 	}
 	public static function serverApiUrlAppRegister()
 	{
