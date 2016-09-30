@@ -343,15 +343,6 @@ class AccountApiClientUser
 		AccountApiClientUser::removeTokenSession();
 	}
 
-//$token = [
-//'access_token' => Input::get("access_token"),
-//'token_type' => Input::get("token_type"),
-//'expires_in' => Input::get("expires_in"),
-//'refresh_token' => Input::get("refresh_token")
-//];
-//
-//AccountApiClientUser::saveTokenSession((object)$token);
-
 	public static function saveTokenSession($token){
 		/* @var $session Segment*/
 		$session = AccountApiClientUser::getSession();

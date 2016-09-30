@@ -16,8 +16,12 @@ class AccountApiClientApp
 	}
 	public static function serverApiUrlAppGet()
 	{
-		return AccountApiConfig::$api_url.'/client/get';
+		return AccountApiConfig::$api_url.'/client_/get';
 	}
+    public static function serverApiUrlAppGetUsers()
+    {
+        return AccountApiConfig::$api_url.'/client/get/users';
+    }
 	public static function serverApiUrlAppRegister()
 	{
 		return AccountApiConfig::$api_url.'/client/register';
@@ -56,7 +60,6 @@ class AccountApiClientApp
 			if ($e->getCode() == 401){
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
-
 			throw new AccountApiClientException('Erro pegando todos os users', $error_messages);
 		}
 	}
@@ -77,10 +80,31 @@ class AccountApiClientApp
 			if ($e->getCode() == 401){
 				$error_messages = json_decode($e->getResponse()->getBody());
 			}
-
 			throw new AccountApiClientException('Erro recuperando dados do app.', $error_messages);
 		}
 	}
+
+    public static function getAppUsers($app_id, $token)
+    {
+        try {
+            $client = new Client();
+            $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGetUsers().'/'.$app_id, [
+                'form_params' =>
+                    [
+                        'access_token' => $token
+                    ]
+            ]);
+            $getApp_response = json_decode($res->getBody());
+            return $getApp_response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            if ($e->getCode() == 401){
+                $error_messages = json_decode($e->getResponse()->getBody());
+            }
+
+            throw new AccountApiClientException('Erro recuperando dados do app.', $error_messages);
+        }
+    }
 
 	public static function registerApp($token, $app)
 	{
