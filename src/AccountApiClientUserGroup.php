@@ -46,14 +46,15 @@ class AccountApiClientUserGroup
 {
     return AccountApiConfig::$api_url.'/groups/addgrant';
 }
-    public static function getAllGroups($token)
+    public static function getAllGroups($token, $page = null)
     {
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGetall(), [
                 'form_params' =>
                     [
-                        'access_token' => $token
+                        'access_token' => $token,
+                        'page' => $page
                     ]
             ]);
             $allGroups_response = json_decode($res->getBody());

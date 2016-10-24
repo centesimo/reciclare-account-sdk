@@ -46,14 +46,15 @@ class AccountApiClientGrant
         return AccountApiConfig::$api_url.'/grants/addgroup';
     }
 
-    public static function getAllGrants($token)
+    public static function getAllGrants($token, $page = null)
     {
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantGetall(), [
                 'form_params' =>
                     [
-                        'access_token' => $token
+                        'access_token' => $token,
+                        'page' => $page
                     ]
             ]);
             $allGrants_response = json_decode($res->getBody());

@@ -47,14 +47,15 @@ class AccountApiClientScope
         return AccountApiConfig::$api_url.'/scopes/addgroup';
     }
 
-    public static function getAllScopes($token)
+    public static function getAllScopes($token, $page = null)
     {
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeGetall(), [
                 'form_params' =>
                     [
-                        'access_token' => $token
+                        'access_token' => $token,
+                        'page' => $page
                     ]
             ]);
             $allScopes_response = json_decode($res->getBody());

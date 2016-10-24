@@ -43,14 +43,15 @@ class AccountApiClientApp
 		return AccountApiConfig::$api_url.'/client/adduser';
 	}
 
-	public static function getAllApps($token)
+	public static function getAllApps($token, $page = null)
 	{
 		try {
 	        $client = new Client();
 	        $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGetall(), [
 	        	'form_params' =>
 	        	[
-	        		'access_token' => $token
+	        		'access_token' => $token,
+                    'page' => $page
 	            ]
 	        ]);
 			$allApps_response = json_decode($res->getBody());
@@ -84,14 +85,15 @@ class AccountApiClientApp
 		}
 	}
 
-    public static function getAppUsers($app_id, $token)
+    public static function getAppUsers($app_id, $token, $page = null)
     {
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGetUsers().'/'.$app_id, [
                 'form_params' =>
                     [
-                        'access_token' => $token
+                        'access_token' => $token,
+                        'page' => $page
                     ]
             ]);
             $getApp_response = json_decode($res->getBody());
