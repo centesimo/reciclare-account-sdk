@@ -65,13 +65,14 @@ class AccountApiClientApp
 		}
 	}
 
-	public static function getApp($app_id)
+	public static function getApp($token = null, $app_id, $page = null)
 	{
 		try {
 			$client = new Client();
 			$res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGet().'/'.$app_id, [
 				'form_params' =>
 					[
+                        'page' => $page
 					]
 			]);
 			$getApp_response = json_decode($res->getBody());
@@ -85,7 +86,7 @@ class AccountApiClientApp
 		}
 	}
 
-    public static function getAppUsers($app_id, $token, $page = null)
+    public static function getAppUsers($token, $app_id, $page = null)
     {
         try {
             $client = new Client();
@@ -103,7 +104,6 @@ class AccountApiClientApp
             if ($e->getCode() == 401){
                 $error_messages = json_decode($e->getResponse()->getBody());
             }
-
             throw new AccountApiClientException('Erro recuperando dados do app.', $error_messages);
         }
     }
