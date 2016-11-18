@@ -357,5 +357,6 @@ class AccountApiClientUser
         $session = AccountApiClientUser::getSession();
         $session->setFlash('token_response', null);
         $session->setFlash('token_datetime', null);
+        $session->clear();
     }
 }
