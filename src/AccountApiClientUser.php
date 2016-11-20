@@ -55,6 +55,10 @@ class AccountApiClientUser
     {
         return AccountApiConfig::$api_url.'/user/deactivate';
     }
+    public static function serverApiUrlUserChangePassword()
+    {
+        return AccountApiConfig::$api_url.'/user/change_password';
+    }
 
     private static $session = null;
 
@@ -341,6 +345,32 @@ class AccountApiClientUser
         }
     }
 
+    public static function changePassword($login, $params){
+        try {
+            $client = new Client();
+            $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserChangePassword().'/'.$login, [
+                'form_params' =>
+                    [
+                        'old_password' => $params['old_password'],
+                        'password' => $params['password'],
+                        'password_confirmation' => $params['password_confirmation'],
+                    ]
+            ]);
+            $changePassUser_response = json_decode($res->getBody());
+            if (!$changePassUser_response->success){
+                throw new AccountApiClientException('Erro alterando a senha usuário.', $changePassUser_response->messages);
+            }
+            return $changePassUser_response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            if ($e->getCode() == 401){
+                $error_messages = json_decode($e->getResponse()->getBody());
+            }
+
+            throw new AccountApiClientException('Erro alterando a senha usuário.', $error_messages);
+        }
+    }
+
     public static function logout(){
         AccountApiClientUser::removeTokenSession();
     }
@@ -357,5 +387,6 @@ class AccountApiClientUser
         $session = AccountApiClientUser::getSession();
         $session->setFlash('token_response', null);
         $session->setFlash('token_datetime', null);
+        $session->clear();
     }
 }
