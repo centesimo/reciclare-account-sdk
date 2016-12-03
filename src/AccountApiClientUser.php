@@ -27,6 +27,14 @@ class AccountApiClientUser
     {
         return AccountApiConfig::$api_url.'/access_token';
     }
+    public static function serverApiUrlUserGetAccessToken()
+    {
+        return AccountApiConfig::$api_url.'/get_access_token';
+    }
+    public static function serverApiUrlUserValidateAccessToken()
+    {
+        return AccountApiConfig::$api_url.'/validate_access_token';
+    }
     public static function serverApiUrlUserGetall()
     {
         return AccountApiConfig::$api_url.'/user/getall';
@@ -58,10 +66,6 @@ class AccountApiClientUser
     public static function serverApiUrlUserChangePassword()
     {
         return AccountApiConfig::$api_url.'/user/change_password';
-    }
-    public static function serverApiUrlUserExpiresPassword()
-    {
-        return AccountApiConfig::$api_url.'/user/set_password_expiration';
     }
 
     private static $session = null;
@@ -248,6 +252,46 @@ class AccountApiClientUser
         }
     }
 
+    public static function getAccessToken($token)
+    {
+        try {
+            $client = new Client();
+            $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetAccessToken(), [
+                'form_params' =>
+                    [
+                        'access_token' => $token
+                    ]
+            ]);
+            $getAccessToken_response = json_decode($res->getBody());
+            return $getAccessToken_response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            if ($e->getCode() == 401){
+                $error_messages = json_decode($e->getResponse()->getBody());
+            }
+
+            throw new AccountApiClientException('Erro validando Token.', $error_messages);
+        }
+    }
+
+    public static function validateAccessToken($token)
+    {
+        try {
+            $client = new Client();
+            $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserValidateAccessToken(), [
+                'form_params' =>
+                    [
+                        'access_token' => $token
+                    ]
+            ]);
+            $validateAccessToken_response = json_decode($res->getBody());
+            return $validateAccessToken_response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            return false;
+        }
+    }
+
     public static function registerUser($token, $user)
     {
         try {
@@ -372,31 +416,6 @@ class AccountApiClientUser
             }
 
             throw new AccountApiClientException('Erro alterando a senha usuário.', $error_messages);
-        }
-    }
-
-    public static function expiresPassword($token, $login, $password_expiration_date){
-        try {
-            $client = new Client();
-            $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserExpiresPassword().'/'.$login, [
-                'form_params' =>
-                    [
-                        'access_token' => $token,
-                        'password_expiration_date' => $password_expiration_date,
-                    ]
-            ]);
-            $expiresPassUser_response = json_decode($res->getBody());
-            if (!$expiresPassUser_response->success){
-                throw new AccountApiClientException('Erro expirando a senha usuário.', $expiresPassUser_response->messages);
-            }
-            return $expiresPassUser_response;
-        } catch (ClientException $e) {
-            $error_messages = null;
-            if ($e->getCode() == 401){
-                $error_messages = json_decode($e->getResponse()->getBody());
-            }
-
-            throw new AccountApiClientException('Erro expirando a senha usuário.', $error_messages);
         }
     }
 
