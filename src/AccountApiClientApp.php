@@ -157,7 +157,7 @@ class AccountApiClientApp
                         'owner_user_id' => $app['owner_user_id'],
                         'custom_logo_url' => $app['custom_logo_url'],
                         'custom_login_css' => $app['custom_login_css'],
-                        'security_questions_enabled' => $app['security_questions_enabled'],
+                        'security_questions_enabled' => isset($app['security_questions_enabled']) ? $app['security_questions_enabled'] : null,
                     ]
             ]);
             $updateApp_response = json_decode($res->getBody());
