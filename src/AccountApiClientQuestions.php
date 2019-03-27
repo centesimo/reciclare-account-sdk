@@ -10,22 +10,7 @@ use Carbon\Carbon;
 
 class AccountApiClientQuestions
 {
-    public static function serverApiUrlQuestionsGetAll()
-    {
-        return AccountApiConfig::$api_url . '/security/questions';
-    }
-
-    public static function serverApiUrlQuestionsGet()
-    {
-        return AccountApiConfig::$api_url . '/security/questions';
-    }
-
-    public static function serverApiUrlQuestionsRegister()
-    {
-        return AccountApiConfig::$api_url . '/security/questions';
-    }
-
-    public static function serverApiUrlQuestionsUpdate()
+    public static function serverApiUrlQuestions()
     {
         return AccountApiConfig::$api_url . '/security/questions';
     }
@@ -34,7 +19,7 @@ class AccountApiClientQuestions
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestionsGetAll(), [
+            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions(), [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -56,7 +41,7 @@ class AccountApiClientQuestions
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestionsGet() . '/' . $question_id, [
+            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -78,7 +63,7 @@ class AccountApiClientQuestions
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlQuestionsRegister(), [
+            $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlQuestions(), [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -102,7 +87,7 @@ class AccountApiClientQuestions
     {
         try {
             $client = new Client();
-            $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlQuestionsUpdate() . '/' . $question_id, [
+            $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -118,6 +103,28 @@ class AccountApiClientQuestions
             }
 
             throw new AccountApiClientException('Erro atualizando a pergunta.', $error_messages);
+        }
+    }
+
+    public static function deleteQuestion($token = null, $question_id)
+    {
+        try {
+            $client = new Client();
+            $res = $client->request(
+                'DELETE',
+                AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id,
+                [
+                    'query' => ['access_token' => $token]
+                ]
+            );
+            $response = json_decode($res->getBody());
+            return $response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            if ($e->getCode() == 401) {
+                $error_messages = json_decode($e->getResponse()->getBody());
+            }
+            throw new AccountApiClientException('Erro excluindo pergunta.', $error_messages);
         }
     }
 }
