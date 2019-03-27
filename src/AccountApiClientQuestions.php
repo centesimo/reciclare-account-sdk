@@ -82,6 +82,7 @@ class AccountApiClientQuestions
                 'form_params' =>
                     [
                         'access_token' => $token,
+                        'oauth_client_id' => isset($question['oauth_client_id']) ? $question['oauth_client_id'] : null,
                         'question' => $question['question'],
                     ]
             ]);
