@@ -10,16 +10,16 @@ use Carbon\Carbon;
 
 class AccountApiClientQuestions
 {
-    public static function serverApiUrlQuestions()
+    public static function serverApiUrlAnswers()
     {
-        return AccountApiConfig::$api_url . '/security/questions';
+        return AccountApiConfig::$api_url . '/security/answers';
     }
 
-    public static function getAllQuestions($token, $page = null)
+    public static function getAllAnswers($token, $page = null)
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions(), [
+            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlAnswers(), [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -33,15 +33,15 @@ class AccountApiClientQuestions
             if ($e->getCode() == 401) {
                 $error_messages = json_decode($e->getResponse()->getBody());
             }
-            throw new AccountApiClientException('Erro pegando todas as perguntas', $error_messages);
+            throw new AccountApiClientException('Erro pegando todas as respostas', $error_messages);
         }
     }
 
-    public static function getQuestion($token = null, $question_id, $page = null)
+    public static function getAnswer($token = null, $answer_id, $page = null)
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
+            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id, [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -59,16 +59,17 @@ class AccountApiClientQuestions
         }
     }
 
-    public static function registerQuestion($token, $question)
+    public static function registerAnswer($token, $answer)
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlQuestions(), [
+            $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlAnswers(), [
                 'form_params' =>
                     [
                         'access_token' => $token,
-                        'oauth_client_id' => isset($question['oauth_client_id']) ? $question['oauth_client_id'] : null,
-                        'question' => $question['question'],
+                        'user_id' => $answer['user_id'],
+                        'question_id' => $answer['question_id'],
+                        'answer' => $answer['answer'],
                     ]
             ]);
             $response = json_decode($res->getBody());
@@ -79,19 +80,21 @@ class AccountApiClientQuestions
                 $error_messages = json_decode($e->getResponse()->getBody());
             }
 
-            throw new AccountApiClientException('Erro tentando criar uma pergunta.', $error_messages);
+            throw new AccountApiClientException('Erro tentando criar uma resposta.', $error_messages);
         }
     }
 
-    public static function updateQuestion($token, $question_id, $question)
+    public static function updateAnswer($token, $answer_id, $answer)
     {
         try {
             $client = new Client();
-            $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
+            $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,
-                        'question' => $question['question'],
+                        'user_id' => $answer['user_id'],
+                        'question_id' => $answer['question_id'],
+                        'answer' => $answer['answer'],
                     ]
             ]);
             $response = json_decode($res->getBody());
@@ -102,17 +105,17 @@ class AccountApiClientQuestions
                 $error_messages = json_decode($e->getResponse()->getBody());
             }
 
-            throw new AccountApiClientException('Erro atualizando a pergunta.', $error_messages);
+            throw new AccountApiClientException('Erro atualizando a resposta.', $error_messages);
         }
     }
 
-    public static function deleteQuestion($token = null, $question_id)
+    public static function deleteAnswer($token = null, $answer_id)
     {
         try {
             $client = new Client();
             $res = $client->request(
                 'DELETE',
-                AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id,
+                AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer ' . $token
@@ -126,7 +129,7 @@ class AccountApiClientQuestions
             if ($e->getCode() == 401) {
                 $error_messages = json_decode($e->getResponse()->getBody());
             }
-            throw new AccountApiClientException('Erro excluindo pergunta.', $error_messages);
+            throw new AccountApiClientException('Erro excluindo resposta.', $error_messages);
         }
     }
 }
