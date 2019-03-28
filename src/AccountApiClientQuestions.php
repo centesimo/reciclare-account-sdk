@@ -114,7 +114,9 @@ class AccountApiClientQuestions
                 'DELETE',
                 AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id,
                 [
-                    'query' => ['access_token' => $token]
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $token
+                    ]
                 ]
             );
             $response = json_decode($res->getBody());
