@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Session;
 use Carbon\Carbon;
 
-class AccountApiClientQuestions
+class AccountApiClientAnswers
 {
     public static function serverApiUrlAnswers()
     {
