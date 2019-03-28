@@ -19,7 +19,7 @@ class AccountApiClientAnswers
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlAnswers(), [
+            $res = $client->request('GET', AccountApiClientAnswers::serverApiUrlAnswers(), [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -41,7 +41,7 @@ class AccountApiClientAnswers
     {
         try {
             $client = new Client();
-            $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id, [
+            $res = $client->request('GET', AccountApiClientAnswers::serverApiUrlAnswers() . '/' . $answer_id, [
                 'query' =>
                     [
                         'access_token' => $token,
@@ -63,7 +63,7 @@ class AccountApiClientAnswers
     {
         try {
             $client = new Client();
-            $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlAnswers(), [
+            $res = $client->request('POST', AccountApiClientAnswers::serverApiUrlAnswers(), [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -88,7 +88,7 @@ class AccountApiClientAnswers
     {
         try {
             $client = new Client();
-            $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id, [
+            $res = $client->request('PUT', AccountApiClientAnswers::serverApiUrlAnswers() . '/' . $answer_id, [
                 'form_params' =>
                     [
                         'access_token' => $token,
@@ -115,7 +115,7 @@ class AccountApiClientAnswers
             $client = new Client();
             $res = $client->request(
                 'DELETE',
-                AccountApiClientQuestions::serverApiUrlAnswers() . '/' . $answer_id,
+                AccountApiClientAnswers::serverApiUrlAnswers() . '/' . $answer_id,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer ' . $token
