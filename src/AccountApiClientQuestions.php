@@ -15,16 +15,18 @@ class AccountApiClientQuestions
         return AccountApiConfig::$api_url . '/security/questions';
     }
 
-    public static function getAllQuestions($token, $page = null)
+    public static function getAllQuestions($token, $page = null, $params = [])
     {
         try {
+            $query = array_merge(
+                [
+                    'access_token' => $token,
+                    'page' => $page
+                ],
+                $params);
             $client = new Client();
             $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions(), [
-                'query' =>
-                    [
-                        'access_token' => $token,
-                        'page' => $page
-                    ]
+                'query' => $query
             ]);
             $response = json_decode($res->getBody());
             return $response;
