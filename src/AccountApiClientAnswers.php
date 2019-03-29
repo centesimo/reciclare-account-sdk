@@ -132,4 +132,30 @@ class AccountApiClientAnswers
             throw new AccountApiClientException('Erro excluindo resposta.', $error_messages);
         }
     }
+
+    public static function validate($appId, $login, $answers)
+    {
+        try {
+            $client = new Client();
+            $res = $client->request(
+                'GET',
+                AccountApiClientAnswers::serverApiUrlAnswers() . '/validate',
+                [
+                    'query' => [
+                        'app_id' => $appId,
+                        'login' => $login,
+                        'answers' => $answers
+                    ]
+                ]
+            );
+            $response = json_decode($res->getBody());
+            return $response;
+        } catch (ClientException $e) {
+            $error_messages = null;
+            if ($e->getCode() == 401) {
+                $error_messages = json_decode($e->getResponse()->getBody());
+            }
+            throw new AccountApiClientException('Erro validando respostas.', $error_messages);
+        }
+    }
 }
