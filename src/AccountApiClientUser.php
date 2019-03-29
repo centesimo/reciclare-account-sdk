@@ -351,6 +351,7 @@ class AccountApiClientUser
                         'old_password' => $params['old_password'],
                         'password' => $params['password'],
                         'password_confirmation' => $params['password_confirmation'],
+                        'client_id' => $params['client_id'],
                     ]
             ]);
             $changePassUser_response = json_decode($res->getBody());
