@@ -15,16 +15,19 @@ class AccountApiClientAnswers
         return AccountApiConfig::$api_url . '/security/answers';
     }
 
-    public static function getAllAnswers($token, $page = null)
+    public static function getAllAnswers($token, $page = null, $params = [])
     {
         try {
+            $query = array_merge(
+                [
+                    'access_token' => $token,
+                    'page' => $page
+                ],
+                $params
+            );
             $client = new Client();
             $res = $client->request('GET', AccountApiClientAnswers::serverApiUrlAnswers(), [
-                'query' =>
-                    [
-                        'access_token' => $token,
-                        'page' => $page
-                    ]
+                'query' => $query
             ]);
             $response = json_decode($res->getBody());
             return $response;
