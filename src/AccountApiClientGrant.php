@@ -6,7 +6,7 @@
  * Time: 17:18
  */
 
-namespace Reciclare\AccountClientSDK;
+namespace ReciclareAccount\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

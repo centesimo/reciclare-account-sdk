@@ -1,6 +1,6 @@
 <?php
 
-namespace Reciclare\AccountClientSDK;
+namespace ReciclareAccount\AccountClientSDK;
 
 class AccountApiConfig
 {

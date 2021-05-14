@@ -1,5 +1,5 @@
 {
-    "name": "reciclare/account-api-client",
+    "name": "reciclare-account/account-api-client",
     "description": "API for OAuth clients account authentication",
     "type": "library",
     "license": "MIT",
@@ -14,7 +14,7 @@
             "AccountClientSDK": "src"
         },
         "psr-4": {
-            "Reciclare\\AccountClientSDK\\": "src"
+            "ReciclareAccount\\AccountClientSDK\\": "src"
         }
     },
     "require": {
