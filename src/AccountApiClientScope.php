@@ -6,7 +6,7 @@
  * Time: 17:47
  */
 
-namespace BetterDev\AccountClientSDK;
+namespace Reciclare\AccountClientSDK;
 
 
 use GuzzleHttp\Client;

@@ -1,6 +1,6 @@
 <?php
 
-namespace BetterDev\AccountClientSDK;
+namespace Reciclare\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

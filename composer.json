@@ -1,12 +1,12 @@
 {
-    "name": "better-dev/account-api-client",
+    "name": "reciclare/account-api-client",
     "description": "API for OAuth clients account authentication",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Marcelo Zani",
-            "email": "marcelozani@hotmail.com"
+            "name": "Reciclare Qualidade",
+            "email": "reciclare@reciclarequalidade.com.br"
         }
     ],
     "autoload": {
@@ -14,7 +14,7 @@
             "AccountClientSDK": "src"
         },
         "psr-4": {
-            "BetterDev\\AccountClientSDK\\": "src"
+            "Reciclare\\AccountClientSDK\\": "src"
         }
     },
     "require": {

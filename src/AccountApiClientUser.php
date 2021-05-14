@@ -1,6 +1,6 @@
 <?php
 
-namespace BetterDev\AccountClientSDK;
+namespace Reciclare\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -83,7 +83,7 @@ class AccountApiClientUser
         if (!AccountApiClientUser::$session) {
             $session_factory = new SessionFactory();
             $session = $session_factory->newInstance($_COOKIE);
-            $segment = $session->getSegment('BetterDev\AccountSDK\Token');
+            $segment = $session->getSegment('Reciclare\AccountSDK\Token');
             AccountApiClientUser::$session = $segment;
         }
         return AccountApiClientUser::$session;

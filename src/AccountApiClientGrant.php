@@ -6,7 +6,7 @@
  * Time: 17:18
  */
 
-namespace BetterDev\AccountClientSDK;
+namespace Reciclare\AccountClientSDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
