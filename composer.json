@@ -3,6 +3,7 @@
     "description": "API for OAuth clients account authentication",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Reciclare Qualidade",
