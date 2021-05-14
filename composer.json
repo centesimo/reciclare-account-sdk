@@ -1,5 +1,5 @@
 {
-    "name": "reciclare-account/account-api-client",
+    "name": "reciclareaccount/account-api-client",
     "description": "API for OAuth clients account authentication",
     "type": "library",
     "license": "MIT",
