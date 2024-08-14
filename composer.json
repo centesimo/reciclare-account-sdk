@@ -15,7 +15,7 @@
             "AccountClientSDK": "src"
         },
         "psr-4": {
-            "BetterDev\\AccountClientSDK\\": "src"
+            "ReciclareAccount\\AccountClientSDK\\": "src"
         }
     },
     "require": {
