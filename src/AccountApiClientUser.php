@@ -114,13 +114,17 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        "grant_type" => "refresh_token",
-                        "refresh_token" => $refresh_token,
-                        "client_id" => AccountApiClientUser::appId(),
-                        "client_secret" => AccountApiClientUser::appSecret()
-                    ]
+                [
+                    "grant_type" => "refresh_token",
+                    "refresh_token" => $refresh_token,
+                    "client_id" => AccountApiClientUser::appId(),
+                    "client_secret" => AccountApiClientUser::appSecret()
+                ]
             ]);
             $token_response = json_decode($res->getBody());
             AccountApiClientUser::saveTokenSession($token_response);
@@ -146,14 +150,18 @@ class AccountApiClientUser
                 $appsecret = $appSecret;
             }
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetToken(), [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        "grant_type" => "password",
-                        "client_id" => $appname,
-                        "client_secret" => $appsecret,
-                        "username" => $user_name,
-                        "password" => $password
-                    ]
+                [
+                    "grant_type" => "password",
+                    "client_id" => $appname,
+                    "client_secret" => $appsecret,
+                    "username" => $user_name,
+                    "password" => $password
+                ]
             ]);
             $token_response = json_decode($res->getBody());
             AccountApiClientUser::saveTokenSession($token_response);
@@ -172,12 +180,17 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGetall(), [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token,
-                        'page' => $page,
-                        'search' => $search
-                    ]
+                [
+                    'access_token' => $token,
+                    'page' => $page,
+                    'search' => $search
+                ]
             ]);
             $allUsers_response = json_decode($res->getBody());
             return $allUsers_response;
@@ -196,10 +209,12 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserGet() . '/' . $login, [
-                'form_params' =>
-                    [
-                        'access_token' => $token
-                    ]
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ]
             ]);
             $getUser_response = json_decode($res->getBody());
             return $getUser_response;
@@ -207,6 +222,7 @@ class AccountApiClientUser
             $error_messages = null;
             if ($e->getCode() == 401) {
                 $error_messages = json_decode($e->getResponse()->getBody());
+                dd($error_messages);
             }
 
             throw new AccountApiClientException('Erro recuperando dados do usuário.', $error_messages);
@@ -223,10 +239,12 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserMe(), [
-                'form_params' =>
-                    [
-                        'access_token' => $token
-                    ]
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ]
             ]);
             $allUsers_response = json_decode($res->getBody());
             return $allUsers_response;
@@ -245,16 +263,21 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserRegister(), [
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token,
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'login' => $user['login'],
-                        'password' => $user['password'],
-                        'password_confirmation' => $user['password_confirmation'],
-                        'metadatas' => $user['metadatas']
-                    ]
+                [
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'login' => $user['login'],
+                    'password' => $user['password'],
+                    'password_confirmation' => $user['password_confirmation'],
+                    'metadatas' => $user['metadatas']
+                ]
             ]);
             $registerUser_response = json_decode($res->getBody());
             return $registerUser_response;
@@ -273,17 +296,22 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserUpdate(), [
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token,
-                        'id' => $user['id'],
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'login' => $user['login'],
-                        'password' => $user['password'],
-                        'password_confirmation' => $user['password_confirmation'],
-                        'metadatas' => $user['metadatas']
-                    ]
+                [
+                    'id' => $user['id'],
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'login' => $user['login'],
+                    'password' => $user['password'],
+                    'password_confirmation' => $user['password_confirmation'],
+                    'metadatas' => $user['metadatas']
+                ]
             ]);
             $updateUser_response = json_decode($res->getBody());
             return $updateUser_response;
@@ -302,10 +330,16 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserActivate() . '/' . $login, [
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token
-                    ]
+                [
+                    'access_token' => $token
+                ]
             ]);
             $activateUser_response = json_decode($res->getBody());
             return $activateUser_response;
@@ -324,10 +358,16 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserDeactivate() . '/' . $login, [
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token
-                    ]
+                [
+                    'access_token' => $token
+                ]
             ]);
             $deactivateUser_response = json_decode($res->getBody());
             return $deactivateUser_response;
@@ -346,13 +386,18 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserChangePassword() . '/' . $login, [
+                'headers' =>
+                [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'old_password' => $params['old_password'],
-                        'password' => $params['password'],
-                        'password_confirmation' => $params['password_confirmation'],
-                        'client_id' => $params['client_id'],
-                    ]
+                [
+                    'old_password' => $params['old_password'],
+                    'password' => $params['password'],
+                    'password_confirmation' => $params['password_confirmation'],
+                    'client_id' => $params['client_id'],
+                ]
             ]);
             $changePassUser_response = json_decode($res->getBody());
             if (!$changePassUser_response->success) {
@@ -374,11 +419,17 @@ class AccountApiClientUser
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUser::serverApiUrlUserExpiresPassword() . '/' . $login, [
+                'headers' =>
+                [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json'
+                ],
                 'form_params' =>
-                    [
-                        'access_token' => $token,
-                        'password_expiration_date' => $password_expiration_date,
-                    ]
+                [
+                    'access_token' => $token,
+                    'password_expiration_date' => $password_expiration_date,
+                ]
             ]);
             $expiresPassUser_response = json_decode($res->getBody());
             if (!$expiresPassUser_response->success) {

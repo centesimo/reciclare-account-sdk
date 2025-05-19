@@ -55,7 +55,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGetall(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'page' => $page
@@ -98,7 +103,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGetUsers() . '/' . $app_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'page' => $page
@@ -120,7 +130,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppRegister(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'name' => $app['name'],
@@ -148,7 +163,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppUpdate() . '/' . $app_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'name' => $app['name'],
@@ -177,7 +197,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppActivate() . '/' . $login, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -199,7 +224,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppDeactivate() . '/' . $login, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -221,7 +251,12 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppAddUser() . '/' . $app_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'users_add' => $user_add_ids,

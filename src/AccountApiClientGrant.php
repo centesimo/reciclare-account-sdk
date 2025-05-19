@@ -51,7 +51,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantGetall(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'page' => $page
@@ -74,7 +79,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantGet().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -96,7 +106,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantRegister() , [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $grant['description'],
@@ -120,7 +135,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantUpdate().'/'.$grant_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $grant['description'],
@@ -144,7 +164,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantActivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -166,7 +191,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantDeactivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -188,7 +218,12 @@ class AccountApiClientGrant
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientGrant::serverApiUrlGrantAddGroup().'/'.$grant_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'groups_add' => $group_add_ids,

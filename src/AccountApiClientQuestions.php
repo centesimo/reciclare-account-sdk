@@ -26,6 +26,11 @@ class AccountApiClientQuestions
                 $params);
             $client = new Client();
             $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions(), [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
                 'query' => $query
             ]);
             $response = json_decode($res->getBody());
@@ -44,6 +49,11 @@ class AccountApiClientQuestions
         try {
             $client = new Client();
             $res = $client->request('GET', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
                 'query' =>
                     [
                         'access_token' => $token,
@@ -66,7 +76,12 @@ class AccountApiClientQuestions
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientQuestions::serverApiUrlQuestions(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'oauth_client_id' => isset($question['oauth_client_id']) ? $question['oauth_client_id'] : null,
@@ -90,7 +105,12 @@ class AccountApiClientQuestions
         try {
             $client = new Client();
             $res = $client->request('PUT', AccountApiClientQuestions::serverApiUrlQuestions() . '/' . $question_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'question' => $question['question'],

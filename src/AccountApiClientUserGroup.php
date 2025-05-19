@@ -51,7 +51,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGetall(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'page' => $page
@@ -74,7 +79,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupGet().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -96,7 +106,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupRegister() , [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $app['description']
@@ -119,7 +134,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupUpdate().'/'.$group_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $group['description'],
@@ -142,7 +162,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupActivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -164,7 +189,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupDeactivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -186,7 +216,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupAddUser().'/'.$group_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'users_add' => $user_add_ids,
@@ -213,7 +248,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupAddClient().'/'.$group_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'clients_add' => $client_add_ids,
@@ -240,7 +280,12 @@ class AccountApiClientUserGroup
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientUserGroup::serverApiUrlGroupAddGrant().'/'.$group_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'grants_add' => $grant_add_ids,

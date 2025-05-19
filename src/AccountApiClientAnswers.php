@@ -27,6 +27,11 @@ class AccountApiClientAnswers
             );
             $client = new Client();
             $res = $client->request('GET', AccountApiClientAnswers::serverApiUrlAnswers(), [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
                 'query' => $query
             ]);
             $response = json_decode($res->getBody());
@@ -45,6 +50,11 @@ class AccountApiClientAnswers
         try {
             $client = new Client();
             $res = $client->request('GET', AccountApiClientAnswers::serverApiUrlAnswers() . '/' . $answer_id, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
                 'query' =>
                     [
                         'access_token' => $token,
@@ -67,7 +77,12 @@ class AccountApiClientAnswers
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientAnswers::serverApiUrlAnswers(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'user_id' => $answer['user_id'],
@@ -92,7 +107,12 @@ class AccountApiClientAnswers
         try {
             $client = new Client();
             $res = $client->request('PUT', AccountApiClientAnswers::serverApiUrlAnswers() . '/' . $answer_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'user_id' => $answer['user_id'],

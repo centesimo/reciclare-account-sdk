@@ -52,7 +52,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeGetall(), [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'page' => $page
@@ -75,7 +80,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeGet().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -97,7 +107,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeRegister().'/'.$grant_id , [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $scope['description'],
@@ -122,7 +137,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeUpdate().'/'.$grant_id.'/'.$scope_id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token,
                         'description' => $scope['description'],
@@ -147,7 +167,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeActivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
@@ -169,7 +194,12 @@ class AccountApiClientScope
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientScope::serverApiUrlScopeDeactivate().'/'.$id, [
-                'form_params' =>
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' =>
                     [
                         'access_token' => $token
                     ]
