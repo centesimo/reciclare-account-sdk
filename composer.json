@@ -4,6 +4,7 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Reciclare Qualidade",
@@ -11,17 +12,24 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "AccountClientSDK": "src"
-        },
         "psr-4": {
             "ReciclareAccount\\AccountClientSDK\\": "src"
         }
     },
     "require": {
-        "php": ">=5.5.9",
-        "guzzlehttp/guzzle": "^6.2",
-        "nesbot/carbon": "~1.21.0",
-        "aura/session": "^2.0"
+        "php": ">=8.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "nesbot/carbon": "^3.9.1",
+        "aura/session": "^4.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ReciclareAccount\\AccountClientSDK\\AccountApiServiceProvider"
+            ]
+        }
     }
 }

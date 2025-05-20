@@ -1,16 +1,14 @@
-vendor/
-node_modules/
+build
+vendor
+tests/TestSupport/temp
+tests/temp
 composer.lock
-
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
-
-# Laravel 5 & Lumen specific
-bootstrap/cache/
-storage/
-.env.*.php
-.env.php
+phpunit.xml
 .env
-.env.example
-.idea
+.phpunit.cache/
+.phpunit.result.cache
+.phpunit.cache/test-results
+.php-cs-fixer.cache
+phpstan.neon
+tests/Support/temp/
+.idea/

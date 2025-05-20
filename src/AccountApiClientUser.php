@@ -118,7 +118,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     "grant_type" => "refresh_token",
                     "refresh_token" => $refresh_token,
@@ -154,7 +154,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     "grant_type" => "password",
                     "client_id" => $appname,
@@ -185,7 +185,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'access_token' => $token,
                     'page' => $page,
@@ -269,7 +269,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'name' => $user['name'],
                     'email' => $user['email'],
@@ -302,7 +302,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'id' => $user['id'],
                     'name' => $user['name'],
@@ -336,7 +336,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'access_token' => $token
                 ]
@@ -364,7 +364,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'access_token' => $token
                 ]
@@ -391,7 +391,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'old_password' => $params['old_password'],
                     'password' => $params['password'],
@@ -425,7 +425,7 @@ class AccountApiClientUser
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json'
                 ],
-                'form_params' =>
+                'json' =>
                 [
                     'access_token' => $token,
                     'password_expiration_date' => $password_expiration_date,

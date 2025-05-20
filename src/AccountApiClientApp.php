@@ -82,7 +82,7 @@ class AccountApiClientApp
         try {
             $client = new Client();
             $res = $client->request('POST', AccountApiClientApp::serverApiUrlAppGet() . '/' . $app_id, [
-                'form_params' =>
+                'json' =>
                     [
                         'page' => $page
                     ]
